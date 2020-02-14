@@ -18,7 +18,11 @@ RUN apt-get install -y --no-install-recommends \
             libboost-dev libboost-system-dev libboost-filesystem-dev libboost-program-options-dev \
             libboost-thread-dev libdb++-dev libminiupnpc-dev
 
-RUN echo -e "# deb http://snapshot.debian.org/archive/debian/20200130T000000Z jessie main\ndeb http://deb.debian.org/debian jessie main\n# deb http://snapshot.debian.org/archive/debian-security/20200130T000000Z jessie/updates main\n\ndeb http://security.debian.org/debian-security jessie/updates main\n# deb http://snapshot.debian.org/archive/debian/20200130T000000Z jessie-updates main\ndeb http://deb.debian.org/debian jessie-updates main" > /etc/apt/sources.list
+#RUN echo -e "# deb http://snapshot.debian.org/archive/debian/20200130T000000Z jessie main\ndeb http://deb.debian.org/debian jessie main\n# deb http://snapshot.debian.org/archive/debian-security/20200130T000000Z jessie/updates main\n\ndeb http://security.debian.org/debian-security jessie/updates main\n# deb http://snapshot.debian.org/archive/debian/20200130T000000Z jessie-updates main\ndeb http://deb.debian.org/debian jessie-updates main" > /etc/apt/sources.list
+RUN echo "deb http://deb.debian.org/debian jessie main" > /etc/apt/sources.list \
+   && echo "deb http://security.debian.org/debian-security jessie/updates main" >> /etc/apt/sources.list \
+   && echo "deb http://deb.debian.org/debian jessie-updates main" >>  /etc/apt/sources.list
+   
 RUN apt-get update
 RUN apt-get install -y --no-install-recommends libssl-dev
 
