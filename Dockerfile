@@ -1,24 +1,14 @@
-FROM ubuntu:xenial
+FROM debian:stretch-slim
 
 MAINTAINER janhajk <janhajk@gmail.com>
 
 
-ARG USER_ID
-ARG GROUP_ID
 
-ENV HOME /radium
-
-ENV SECRET <SECRET KEY>
-ENV CLIENT_URL https://github.com/RadiumCore/radium-0.11/archive/1.5.1.0.tar.gz
+ENV PASSPHRASE <SECRET KEY>
+ENV CLIENT_URL "https://github.com/RadiumCore/radium-0.11/archive/1.5.1.0.tar.gz"
+ENV CLIENT_NAME "1.5.1.0"
 
 
-# add user with specified (or default) user/group ids
-ENV USER_ID ${USER_ID:-1000}
-ENV GROUP_ID ${GROUP_ID:-1000}
-
-# add our user and group first to make sure their IDs get assigned consistently, regardless of whatever dependencies get added
-RUN groupadd -g ${GROUP_ID} radium
-RUN useradd -u ${USER_ID} -g radium -s /bin/bash -m -d /radium radium
 
 RUN apt-get update
 
@@ -30,11 +20,16 @@ RUN apt-get install -y --no-install-recommends \
             
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+COPY docker-entrypoint.sh /entrypoint.sh
+RUN groupadd -r radium && useradd -r -m -g radium radium
+USER radium
 
-VOLUME ["/radium"]
+VOLUME "/home/.radium"
 
-WORKDIR /radium
+ENTRYPOINT "/entrypoint.sh"
 
-COPY docker-entrypoint.sh /usr/local/bin/
 
-ENTRYPOINT ["docker-entrypoint.sh"]
+
+
+
+
