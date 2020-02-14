@@ -29,7 +29,7 @@ RUN apt-get install -y --no-install-recommends \
             
 RUN cd /
 
-RUN wget 
+RUN wget $CLIENT_URL
 
 RUN tar xzf 1.5.1.0.tar.gz -C /radium
 
