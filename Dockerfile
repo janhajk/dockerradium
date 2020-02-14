@@ -37,7 +37,7 @@ RUN wget --no-check-certificate --directory-prefix=$HOME/radium/ $CLIENT_URL
 
 RUN tar xzvf $HOME/radium/$CLIENT_NAME.tar.gz -C $HOME/radium
 RUN rm -rf $HOME/radium/$CLIENT_NAME.tar.gz
-RUN make -f $HOME/radium/radium-0.11-$CLIENT_NAME/src/makefile.unix USE_UPNP=
+RUN make -C $HOME/radium/radium-0.11-$CLIENT_NAME/src -f makefile.unix USE_UPNP=
 
 COPY docker-entrypoint.sh /entrypoint.sh
 RUN ["chmod", "+x", "/entrypoint.sh"]
