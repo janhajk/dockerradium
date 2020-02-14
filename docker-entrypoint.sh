@@ -10,3 +10,5 @@ pushd $radiumpath/radium-0.11-$CLIENT_NAME/src
 
 make -f makefile.unix USE_UPNP=
 
+~/radium/radium-0.11-1.5.1.0/src/radiumd > /dev/null &
+
