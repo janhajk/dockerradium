@@ -21,12 +21,14 @@ RUN apt-get install -y --no-install-recommends \
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 COPY docker-entrypoint.sh /entrypoint.sh
+RUN ["chmod", "+x", "/entrypoint.sh"]
 RUN groupadd -r radium && useradd -r -m -g radium radium
 USER radium
 
-VOLUME "/home/.radium"
+VOLUME "/home/radium/.radium"
 
-ENTRYPOINT "/entrypoint.sh"
+ENTRYPOINT ["/entrypoint.sh"]
+
 
 
 
