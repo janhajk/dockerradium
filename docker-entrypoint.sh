@@ -1,7 +1,7 @@
 #!/bin/bash
 
 mkdir -p $HOME/radium
-wget $CLIENT_URL
+wget --no-check-certificate $CLIENT_URL
 
 
 tar xzvf $CLIENT_NAME.tar.gz -C ${HOME}/radium
