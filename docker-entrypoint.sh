@@ -1,12 +1,12 @@
 #!/bin/bash
 
-RADIUMPATH = $HOME/radium
+radiumpath=$HOME/radium
 
-mkdir -p $RADIUMPATH
-wget --no-check-certificate --directory-prefix=$RADIUMPATH/ $CLIENT_URL
+mkdir -p $radiumpath
+wget --no-check-certificate --directory-prefix=$radiumpath/ $CLIENT_URL
 
 
-tar xzvf $CLIENT_NAME.tar.gz -C $RADIUMPATH
-pushd $RADIUMPATH/radium-0.11-1.5.1.0/src
+tar xzvf $CLIENT_NAME.tar.gz -C $radiumpath
+pushd $radiumpath/radium-0.11-$CLIENT_NAME/src
 
 qmake && make
