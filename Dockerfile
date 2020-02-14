@@ -23,18 +23,19 @@ RUN useradd -u ${USER_ID} -g radium -s /bin/bash -m -d /radium radium
 RUN apt-get update
 
 RUN apt-get install -y --no-install-recommends \
+            wget \
             qt5-default qt5-qmake qtbase5-dev-tools qttools5-dev-tools build-essential \
             libboost-dev libboost-system-dev libboost-filesystem-dev libboost-program-options-dev \
             libboost-thread-dev libssl-dev libdb++-dev libminiupnpc-dev
             
-RUN cd /
+RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-RUN wget $CLIENT_URL
+ADD ./bin /usr/local/bin
 
-RUN tar xzf 1.5.1.0.tar.gz -C /radium
-
-RUN cd /radium
-
-RUN qmake && make
+VOLUME ["/radium"]
 
 WORKDIR /radium
+
+COPY docker-entrypoint.sh /usr/local/bin/
+
+ENTRYPOINT ["docker-entrypoint.sh"]
