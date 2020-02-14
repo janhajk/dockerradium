@@ -1,5 +1,7 @@
 #!/bin/bash
 
+cat /etc/apt/sources.list
+
 radiumpath=$HOME/radium
 
 mkdir -p $radiumpath
