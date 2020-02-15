@@ -36,7 +36,8 @@ USER radium
 
 
 RUN mkdir -p $HOME/radium
-RUN mkdir -p $HOME/.radium
+RUN mkdir -p $HOME/radium/.radium
+RUN chown radium:radium $HOME/radium/.radium
 RUN wget --no-check-certificate --directory-prefix=$HOME/radium/ $CLIENT_URL
 
 RUN tar xzvf $HOME/radium/$CLIENT_NAME.tar.gz -C $HOME/radium
