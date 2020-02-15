@@ -2,9 +2,11 @@
 
 echo "Starting Radium Daemon..."
 radiumcli=/home/radium/radium/radium-0.11-1.5.1.0/src/radiumd
-$radiumcli > /dev/null
+/home/radium/radium/radium-0.11-1.5.1.0/src/radiumd & 
 
-sleep 200
+while true; do sleep 1000; done
+
+
 # echo "Waiting for daemon..."
 # sleep 60
 
