@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
-$HOME/radium/radium-0.11-1.5.1.0/src/radiumd > /dev/null &
+/home/radium/radium/radium-0.11-1.5.1.0/src/radiumd > /dev/null &
 
