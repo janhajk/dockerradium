@@ -28,6 +28,9 @@ RUN apt-get install -y --no-install-recommends libssl-dev
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+COPY docker-entrypoint.sh /entrypoint.sh
+RUN ["chmod", "+x", "/entrypoint.sh"]
+
 RUN groupadd -r radium && useradd -r -m -g radium radium
 USER radium
 
@@ -39,8 +42,6 @@ RUN tar xzvf $HOME/radium/$CLIENT_NAME.tar.gz -C $HOME/radium
 RUN rm -rf $HOME/radium/$CLIENT_NAME.tar.gz
 RUN make -C $HOME/radium/radium-0.11-$CLIENT_NAME/src -f makefile.unix USE_UPNP=
 
-COPY docker-entrypoint.sh /entrypoint.sh
-RUN ["chmod", "+x", "/entrypoint.sh"]
 
 VOLUME "/home/radium/.radium"
 
