@@ -14,6 +14,7 @@ RUN apt-get update
 
 RUN apt-get install -y --no-install-recommends \
             wget \
+            nano \
             qt5-default qt5-qmake qtbase5-dev-tools qttools5-dev-tools build-essential \
             libboost-dev libboost-system-dev libboost-filesystem-dev libboost-program-options-dev \
             libboost-thread-dev libdb++-dev libminiupnpc-dev
@@ -31,24 +32,40 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 COPY docker-entrypoint.sh /entrypoint.sh
 RUN ["chmod", "+x", "/entrypoint.sh"]
 
-RUN groupadd -d /home/radium -r radium && useradd -r -m -g radium radium
+RUN groupadd -r radium && useradd -r -m -g radium radium
 
 # user directory with blockchain and wallet
-RUN mkdir -p $HOME/.radium
-RUN chown radium $HOME/.radium
+RUN mkdir -p /home/radium/.radium
+RUN chown radium /home/radium/.radium
 WORKDIR /home/radium
 VOLUME /home/radium/.radium
 
 USER radium
 
 # /home/radium/radium for program
-RUN mkdir -p $HOME/radium
-RUN wget --no-check-certificate --directory-prefix=$HOME/radium/ $CLIENT_URL
+RUN mkdir -p /home/radium/radium
+RUN wget --no-check-certificate --directory-prefix=/home/radium/radium/ $CLIENT_URL
 
-RUN tar xzvf $HOME/radium/$CLIENT_NAME.tar.gz -C $HOME/radium
-RUN rm -rf $HOME/radium/$CLIENT_NAME.tar.gz
-RUN make -C $HOME/radium/radium-0.11-$CLIENT_NAME/src -f makefile.unix USE_UPNP=
+RUN tar xzvf /home/radium/radium/$CLIENT_NAME.tar.gz -C $HOME/radium
+RUN rm -rf /home/radium/radium/$CLIENT_NAME.tar.gz
+RUN make -C /home/radium/radium/radium-0.11-$CLIENT_NAME/src -f makefile.unix USE_UPNP=
 
+
+RUN echo "rpcuser=radiumrpc" > /home/radium/.radium/radium.conf
+RUN echo "rpcpassword=59ZqfkHebhtHbVJS2CSxk6LEjxZS1E5GTumGxqbjfbWn" >> /home/radium/.radium/radium.conf
+RUN echo "addnode=100.4.218.251" >> /home/radium/.radium/radium.conf
+RUN echo "addnode=104.156.251.173" >> /home/radium/.radium/radium.conf
+RUN echo "addnode=104.207.154.234" >> /home/radium/.radium/radium.conf
+RUN echo "addnode=107.15.220.153" >> /home/radium/.radium/radium.conf
+RUN echo "addnode=109.206.213.143" >> /home/radium/.radium/radium.conf
+RUN echo "addnode=109.89.234.67" >> /home/radium/.radium/radium.conf
+RUN echo "addnode=110.168.53.98" >> /home/radium/.radium/radium.conf
+RUN echo "addnode=115.87.138.10" >> /home/radium/.radium/radium.conf
+RUN echo "addnode=12.25.150.130" >> /home/radium/.radium/radium.conf
+RUN echo "addnode=13.209.243.246" >> /home/radium/.radium/radium.conf
+RUN echo "addnode=134.19.189.68" >> /home/radium/.radium/radium.conf
+RUN echo "addnode=135.23.228.90" >> /home/radium/.radium/radium.conf
+# RUN echo "" >> /home/radium/.radium/radium.conf
 
 ENTRYPOINT ["/entrypoint.sh"]
 
