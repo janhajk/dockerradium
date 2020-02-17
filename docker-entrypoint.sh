@@ -2,7 +2,7 @@
 
 echo "Starting Radium Daemon..."
 radiumcli=/home/radium/radium/radium-0.11-1.5.1.0/src/radiumd
-/home/radium/radium/radium-0.11-1.5.1.0/src/radiumd & 
+/home/radium/radium/radium-0.11-1.5.1.0/src/radiumd -datadir=/home/radium/data/.radium & 
 
 while true; do sleep 1000; done
 

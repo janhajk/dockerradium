@@ -15,6 +15,7 @@ RUN apt-get update
 RUN apt-get install -y --no-install-recommends \
             wget \
             nano \
+            sudo \
             qt5-default qt5-qmake qtbase5-dev-tools qttools5-dev-tools build-essential \
             libboost-dev libboost-system-dev libboost-filesystem-dev libboost-program-options-dev \
             libboost-thread-dev libdb++-dev libminiupnpc-dev
@@ -35,12 +36,13 @@ RUN ["chmod", "+x", "/entrypoint.sh"]
 RUN groupadd -r radium && useradd -r -m -g radium radium
 
 # user directory with blockchain and wallet
-RUN mkdir -p /home/radium/.radium
-RUN chown radium /home/radium/.radium
+RUN mkdir -p /home/radium/data
 WORKDIR /home/radium
-VOLUME /home/radium/.radium
-
+VOLUME /home/radium/data
 USER radium
+RUN mkdir -p /home/radium/data/.radium
+RUN chown radium /home/radium/data/.radium
+
 
 # /home/radium/radium for program
 RUN mkdir -p /home/radium/radium
