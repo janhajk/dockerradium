@@ -31,21 +31,24 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 COPY docker-entrypoint.sh /entrypoint.sh
 RUN ["chmod", "+x", "/entrypoint.sh"]
 
-RUN groupadd -r radium && useradd -r -m -g radium radium
+RUN groupadd -d /home/radium -r radium && useradd -r -m -g radium radium
+
+# user directory with blockchain and wallet
+RUN mkdir -p $HOME/.radium
+RUN chown radium $HOME/.radium
+WORKDIR /home/radium
+VOLUME /home/radium/.radium
+
 USER radium
 
-
+# /home/radium/radium for program
 RUN mkdir -p $HOME/radium
-RUN mkdir -p $HOME/radium/.radium
-RUN chown radium:radium $HOME/radium/.radium
 RUN wget --no-check-certificate --directory-prefix=$HOME/radium/ $CLIENT_URL
 
 RUN tar xzvf $HOME/radium/$CLIENT_NAME.tar.gz -C $HOME/radium
 RUN rm -rf $HOME/radium/$CLIENT_NAME.tar.gz
 RUN make -C $HOME/radium/radium-0.11-$CLIENT_NAME/src -f makefile.unix USE_UPNP=
 
-
-VOLUME "/home/radium/.radium"
 
 ENTRYPOINT ["/entrypoint.sh"]
 
