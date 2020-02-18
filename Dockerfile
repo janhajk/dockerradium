@@ -42,6 +42,21 @@ WORKDIR /home/radium
 VOLUME /home/radium/data
 USER radium
 RUN mkdir -p /home/radium/data/.radium
+RUN echo "rpcuser=radiumrpc" > /home/radium/data/.radium/radium.conf
+RUN echo "rpcpassword=59ZqfkHebhtHbVJS2CSxk6LEjxZS1E5GTumGxqbjfbWn" >> /home/radium/.radium/radium.conf
+RUN echo "addnode=100.4.218.251" >> /home/radium/data/.radium/radium.conf
+RUN echo "addnode=104.156.251.173" >> /home/radium/data/.radium/radium.conf
+RUN echo "addnode=104.207.154.234" >> /home/radium/data/.radium/radium.conf
+RUN echo "addnode=107.15.220.153" >> /home/radium/data/.radium/radium.conf
+RUN echo "addnode=109.206.213.143" >> /home/radium/data/.radium/radium.conf
+RUN echo "addnode=109.89.234.67" >> /home/radium/data/.radium/radium.conf
+RUN echo "addnode=110.168.53.98" >> /home/radium/data/.radium/radium.conf
+RUN echo "addnode=115.87.138.10" >> /home/radium/data/.radium/radium.conf
+RUN echo "addnode=12.25.150.130" >> /home/radium/data/.radium/radium.conf
+RUN echo "addnode=13.209.243.246" >> /home/radium/data/.radium/radium.conf
+RUN echo "addnode=134.19.189.68" >> /home/radium/data/.radium/radium.conf
+RUN echo "addnode=135.23.228.90" >> /home/radium/data/.radium/radium.conf
+# RUN echo "" >> /home/radium/data/.radium/radium.conf
 
 
 # /home/radium/radium for program
@@ -53,21 +68,6 @@ RUN rm -rf /home/radium/radium/$CLIENT_NAME.tar.gz
 RUN make -C /home/radium/radium/radium-0.11-$CLIENT_NAME/src -f makefile.unix USE_UPNP=
 
 
-RUN echo "rpcuser=radiumrpc" > /home/radium/.radium/radium.conf
-RUN echo "rpcpassword=59ZqfkHebhtHbVJS2CSxk6LEjxZS1E5GTumGxqbjfbWn" >> /home/radium/.radium/radium.conf
-RUN echo "addnode=100.4.218.251" >> /home/radium/.radium/radium.conf
-RUN echo "addnode=104.156.251.173" >> /home/radium/.radium/radium.conf
-RUN echo "addnode=104.207.154.234" >> /home/radium/.radium/radium.conf
-RUN echo "addnode=107.15.220.153" >> /home/radium/.radium/radium.conf
-RUN echo "addnode=109.206.213.143" >> /home/radium/.radium/radium.conf
-RUN echo "addnode=109.89.234.67" >> /home/radium/.radium/radium.conf
-RUN echo "addnode=110.168.53.98" >> /home/radium/.radium/radium.conf
-RUN echo "addnode=115.87.138.10" >> /home/radium/.radium/radium.conf
-RUN echo "addnode=12.25.150.130" >> /home/radium/.radium/radium.conf
-RUN echo "addnode=13.209.243.246" >> /home/radium/.radium/radium.conf
-RUN echo "addnode=134.19.189.68" >> /home/radium/.radium/radium.conf
-RUN echo "addnode=135.23.228.90" >> /home/radium/.radium/radium.conf
-# RUN echo "" >> /home/radium/.radium/radium.conf
 
 ENTRYPOINT ["/entrypoint.sh"]
 
