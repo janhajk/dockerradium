@@ -15,12 +15,12 @@ RUN apt-get update
 RUN apt-get install -y --no-install-recommends \
             wget \
             nano \
+            htop \
             sudo \
             qt5-default qt5-qmake qtbase5-dev-tools qttools5-dev-tools build-essential \
             libboost-dev libboost-system-dev libboost-filesystem-dev libboost-program-options-dev \
             libboost-thread-dev libdb++-dev libminiupnpc-dev
 
-#RUN echo -e "# deb http://snapshot.debian.org/archive/debian/20200130T000000Z jessie main\ndeb http://deb.debian.org/debian jessie main\n# deb http://snapshot.debian.org/archive/debian-security/20200130T000000Z jessie/updates main\n\ndeb http://security.debian.org/debian-security jessie/updates main\n# deb http://snapshot.debian.org/archive/debian/20200130T000000Z jessie-updates main\ndeb http://deb.debian.org/debian jessie-updates main" > /etc/apt/sources.list
 RUN echo "deb http://deb.debian.org/debian jessie main" > /etc/apt/sources.list \
    && echo "deb http://security.debian.org/debian-security jessie/updates main" >> /etc/apt/sources.list \
    && echo "deb http://deb.debian.org/debian jessie-updates main" >>  /etc/apt/sources.list
@@ -36,27 +36,12 @@ RUN ["chmod", "+x", "/entrypoint.sh"]
 RUN groupadd -r radium && useradd -r -m -g radium radium
 
 # user directory with blockchain and wallet
-RUN mkdir -p /home/radium/data
-RUN chown radium:radium /home/radium/data
+RUN mkdir -p /home/radium/.radium
+RUN chown radium:radium /home/radium/.radium
 WORKDIR /home/radium
-VOLUME /home/radium/data
+VOLUME /home/radium/.radium
 USER radium
-RUN mkdir -p /home/radium/data/.radium
-RUN echo "rpcuser=radiumrpc" > /home/radium/data/.radium/radium.conf
-RUN echo "rpcpassword=59ZqfkHebhtHbVJS2CSxk6LEjxZS1E5GTumGxqbjfbWn" >> /home/radium/.radium/radium.conf
-RUN echo "addnode=100.4.218.251" >> /home/radium/data/.radium/radium.conf
-RUN echo "addnode=104.156.251.173" >> /home/radium/data/.radium/radium.conf
-RUN echo "addnode=104.207.154.234" >> /home/radium/data/.radium/radium.conf
-RUN echo "addnode=107.15.220.153" >> /home/radium/data/.radium/radium.conf
-RUN echo "addnode=109.206.213.143" >> /home/radium/data/.radium/radium.conf
-RUN echo "addnode=109.89.234.67" >> /home/radium/data/.radium/radium.conf
-RUN echo "addnode=110.168.53.98" >> /home/radium/data/.radium/radium.conf
-RUN echo "addnode=115.87.138.10" >> /home/radium/data/.radium/radium.conf
-RUN echo "addnode=12.25.150.130" >> /home/radium/data/.radium/radium.conf
-RUN echo "addnode=13.209.243.246" >> /home/radium/data/.radium/radium.conf
-RUN echo "addnode=134.19.189.68" >> /home/radium/data/.radium/radium.conf
-RUN echo "addnode=135.23.228.90" >> /home/radium/data/.radium/radium.conf
-# RUN echo "" >> /home/radium/data/.radium/radium.conf
+COPY radium.conf /home/radium/
 
 
 # /home/radium/radium for program
