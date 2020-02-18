@@ -33,7 +33,7 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 COPY docker-entrypoint.sh /entrypoint.sh
 RUN ["chmod", "+x", "/entrypoint.sh"]
 
-RUN groupadd -r radium && useradd -r -m -g radium radium
+RUN groupadd -r radium && useradd -r -m -g 1024 radium
 
 # user directory with blockchain and wallet
 RUN mkdir -p /home/radium/data
@@ -41,7 +41,6 @@ WORKDIR /home/radium
 VOLUME /home/radium/data
 USER radium
 RUN mkdir -p /home/radium/data/.radium
-RUN chown radium /home/radium/data/.radium
 
 
 # /home/radium/radium for program
