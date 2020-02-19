@@ -52,7 +52,7 @@ RUN tar xzvf /home/radium/radium/$CLIENT_NAME.tar.gz -C $HOME/radium
 RUN rm -rf /home/radium/radium/$CLIENT_NAME.tar.gz
 RUN make -C /home/radium/radium/radium-0.11-$CLIENT_NAME/src -f makefile.unix USE_UPNP=
 
-
+EXPOSE 8332 8333 18332 18333
 
 ENTRYPOINT ["/entrypoint.sh"]
 
