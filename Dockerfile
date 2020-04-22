@@ -14,9 +14,6 @@ RUN apt-get update
 
 RUN apt-get install -y --no-install-recommends \
             wget \
-            nano \
-            htop \
-            sudo \
             qt5-default qt5-qmake qtbase5-dev-tools qttools5-dev-tools build-essential \
             libboost-dev libboost-system-dev libboost-filesystem-dev libboost-program-options-dev \
             libboost-thread-dev libdb++-dev libminiupnpc-dev

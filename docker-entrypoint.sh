@@ -1,11 +1,16 @@
 #!/bin/bash -e
 
 echo "Starting Radium Daemon..."
-radiumcli=/home/radium/radium/radium-0.11-1.5.1.0/src/radiumd
-# cp /home/radium/radium.conf /home/radium/.radium/radium.conf
 /home/radium/radium/radium-0.11-1.5.1.0/src/radiumd -datadir=/home/radium/.radium & 
-
-while true; do sleep 1000; done
+sleep 60000
+# unlock wallet
+echo "unlocking wallet"
+/home/radium/radium/radium-0.11-1.5.1.0/src/radiumd walletpassphrase $PASSPHRASE 9999999 true
+/home/radium/radium/radium-0.11-1.5.1.0/src/radiumd getinfo | grep unlocked
+while true; do 
+      sleep 100000; 
+      /home/radium/radium/radium-0.11-1.5.1.0/src/radiumd getinfo | grep unlocked
+done
 
 
 # echo "Waiting for daemon..."
