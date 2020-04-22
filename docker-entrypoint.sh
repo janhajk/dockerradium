@@ -2,13 +2,13 @@
 
 echo "Starting Radium Daemon..."
 /home/radium/radium/radium-0.11-1.5.1.0/src/radiumd -datadir=/home/radium/.radium & 
-sleep 60000
+sleep 300
 # unlock wallet
 echo "unlocking wallet"
 /home/radium/radium/radium-0.11-1.5.1.0/src/radiumd walletpassphrase $PASSPHRASE 9999999 true
 /home/radium/radium/radium-0.11-1.5.1.0/src/radiumd getinfo | grep unlocked
 while true; do 
-      sleep 100000; 
+      sleep 86400; 
       /home/radium/radium/radium-0.11-1.5.1.0/src/radiumd getinfo | grep unlocked
 done
 
